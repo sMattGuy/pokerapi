@@ -1,0 +1,14 @@
+{
+  "name": "pokerapi",
+  "version": "1.0.0",
+  "description": "A simple poker API that lets player made AI challenge each other",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "smattguy",
+  "license": "ISC",
+  "dependencies": {
+    "pokersolver": "^2.1.4"
+  }
+}
