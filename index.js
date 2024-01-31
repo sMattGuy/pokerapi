@@ -16,7 +16,6 @@ for(const file of playerFiles){
     let playerData = {};
     playerData.data = ai.data;
     playerData.execute = ai.execute;
-    playerData.hand = [];
     players.set(playerData.data.name,playerData);
   }
 }
@@ -24,17 +23,52 @@ for(const file of playerFiles){
 runGame();
 
 async function runGame(){
-  const table = new Table();
-  table.sitDown("dummy_player",1000); // TEMP JUST FOR TESTING
+  const table = new Table(BALANCE);
+  
+  // this whole section will need to be removed, just adding bots for testing
+  players.set("dummy_player1",players.get("Randy Random"));
+  players.set("dummy_player2",players.get("Randy Random"));
+  players.set("dummy_player3",players.get("Randy Random"));
+
   //sit down players
   for(let [key, value] of players){
     table.sitDown(key, BALANCE);
   }
-  //start round loop 
-  table.dealCards();
-  while(table.currentRound){
-    await players.get(table.currentActor.id).execute(table.currentActor);
-    //artificial delay for now
-    await delay_move(3000);
+  while(table.activePlayers.length > 1){
+    table.dealCards();
+    //start round loop
+    let roundCounter = 0;
+    while(table.currentRound){
+      console.log(roundCounter++);
+      console.log(`Current Round: ${table.currentRound}, Current Pot: ${table.currentPot.amount}`);
+      console.log(`Community Cards: ${getPrettyCards(table.communityCards)}`);
+      console.log(`Current Player: ${table.currentActor.id}, Hand: ${table.currentActor.hand}, Stack: ${table.currentActor.stackSize}`);
+      await players.get(table.currentActor.id).execute(table.currentActor);
+      console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~');
+      //artificial delay for now
+      //await delay_move(2000);
+    }
+    //remove any players who are out of money
+    for(let i=0;i<table.activePlayers.length;i++){
+      if(table.activePlayers[i].stackSize <= 0){
+        console.log(`${table.activePlayers[i].id} is out of cash! they've stood up and left!`);
+      }
+    }
+    //once round ends, print out winners and clean up
+    console.log('Winner: ',table.winners[0].id);
+    console.log('Pot Amount: ',table.currentPot.amount);
+    console.log('Stack Size: ',table.winners[0].stackSize);
+    //await delay_move(5000);
+    table.cleanUp();
+    console.log('Players Remaining: ', table.activePlayers.length);
   }
+  console.log('Game Over! The winner is: ',table.activePlayers[0].id)
+}
+
+function getPrettyCards(cards){
+  let pretty_cards = "";
+  for(let i=0;i<cards.length;i++){
+    pretty_cards += cards[i].suitChar + cards[i].rank + " ";
+  }
+  return pretty_cards;
 }
