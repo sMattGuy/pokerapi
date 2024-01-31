@@ -1,9 +1,9 @@
 const fs = require("node:fs");
 const path = require("node:path");
 const { Table } = require("@bradyy/poker-engine");
-const { delay_move } = require("./helperFunctions/basicCommands.js")
+const { move_history, delay_move } = require("./helperFunctions/basicCommands.js")
 
-const BALANCE = 1000; // Plan on making this a command line argument
+const BALANCE = 100000; // Plan on making this a command line argument
 
 // import player AI
 const players = new Map();
@@ -26,9 +26,9 @@ async function runGame(){
   const table = new Table(BALANCE);
   
   // this whole section will need to be removed, just adding bots for testing
-  players.set("dummy_player1",players.get("Randy Random"));
-  players.set("dummy_player2",players.get("Randy Random"));
-  players.set("dummy_player3",players.get("Randy Random"));
+  players.set("dummy_player1",players.get("Raising Rachel"));
+  // players.set("dummy_player2",players.get("Raising Rachel"));
+  // players.set("dummy_player3",players.get("Raising Rachel"));
 
   //sit down players
   for(let [key, value] of players){
@@ -62,7 +62,7 @@ async function runGame(){
     table.cleanUp();
     console.log('Players Remaining: ', table.activePlayers.length);
   }
-  console.log('Game Over! The winner is: ',table.activePlayers[0].id)
+  console.log('Game Over! The winner is: ',table.activePlayers[0].id);
 }
 
 function getPrettyCards(cards){

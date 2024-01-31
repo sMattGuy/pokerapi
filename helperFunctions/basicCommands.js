@@ -30,13 +30,14 @@ module.exports = {
     let existing_history = move_history.get(currentPlayer.id);
     if(existing_history){
       //update history to include new move
-      existing_history.actions.push('check');
+      existing_history.push('check');
       move_history.set(currentPlayer.id,existing_history);
     }
     else{
       //players first move, add it to the map
       let new_history = [];
       new_history.push('check');
+      move_history.set(currentPlayer.id, new_history)
     }
     //after updating the history call the engine function for the player.
     console.log(`${currentPlayer.id} checked`);
@@ -51,13 +52,14 @@ module.exports = {
     let existing_history = move_history.get(currentPlayer.id);
     if(existing_history){
       //update history to include new move
-      existing_history.actions.push('call');
+      existing_history.push('call');
       move_history.set(currentPlayer.id,existing_history);
     }
     else{
       //players first move, add it to the map
       let new_history = [];
       new_history.push('call');
+      move_history.set(currentPlayer.id, new_history)
     }
     //after updating the history call the engine function for the player.
     console.log(`${currentPlayer.id} called!`);
@@ -72,13 +74,14 @@ module.exports = {
     let existing_history = move_history.get(currentPlayer.id);
     if(existing_history){
       //update history to include new move
-      existing_history.actions.push(`bet ${bet}`);
+      existing_history.push(`bet ${bet}`);
       move_history.set(currentPlayer.id,existing_history);
     }
     else{
       //players first move, add it to the map
       let new_history = [];
       new_history.push(`bet ${bet}`);
+      move_history.set(currentPlayer.id, new_history)
     }
     //after updating the history call the engine function for the player.
     console.log(`${currentPlayer.id} bet ${bet}!`);
@@ -93,13 +96,14 @@ module.exports = {
     let existing_history = move_history.get(currentPlayer.id);
     if(existing_history){
       //update history to include new move
-      existing_history.actions.push(`raise ${raise}`);
+      existing_history.push(`raise ${raise}`);
       move_history.set(currentPlayer.id,existing_history);
     }
     else{
       //players first move, add it to the map
       let new_history = [];
       new_history.push(`raise ${raise}`);
+      move_history.set(currentPlayer.id, new_history)
     }
     //after updating the history call the engine function for the player.
     console.log(`${currentPlayer.id} raised ${raise}!`);
@@ -109,13 +113,14 @@ module.exports = {
     let existing_history = move_history.get(currentPlayer.id);
     if(existing_history){
       //update history to include new move
-      existing_history.actions.push('fold');
+      existing_history.push('fold');
       move_history.set(currentPlayer.id,existing_history);
     }
     else{
       //players first move, add it to the map
       let new_history = [];
       new_history.push('fold');
+      move_history.set(currentPlayer.id, new_history)
     }
     //after updating the history call the engine function for the player.
     console.log(`${currentPlayer.id} folded!`);
