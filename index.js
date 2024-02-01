@@ -38,9 +38,12 @@ async function runGame(){
           console.log(roundCounter++);
           console.log(`Current Round: ${table.currentRound}, Current Pot: ${table.currentPot.amount}`);
           console.log(`Community Cards: ${getPrettyCards(table.communityCards)}`);
-          console.log(`Current Player: ${table.currentActor.id}, Hand: ${table.currentActor.hand}, Stack: ${table.currentActor.stackSize}`);
+          console.log(`Current Player: ${table.currentActor.id}, Hand: ${table.currentActor.hand} (${table.currentActor.hand.descr}), Stack: ${table.currentActor.stackSize}`);
         }
+
+        //activate player to make move, only 2 seconds to respond
         await players.get(table.currentActor.id).execute(table.currentActor);
+
         if(VERBOSE){
           console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~');
           if(SLOW){
