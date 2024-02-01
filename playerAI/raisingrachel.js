@@ -1,4 +1,4 @@
-const { foldHand, callHand, betHand, checkHand, raiseHand, delay_move, move_history} = require('../helperFunctions/basicCommands.js');
+const { foldHand, callHand, betHand, checkHand, raiseHand, delay_move, move_history} = require('../helpers/basicCommands.js');
 module.exports = {
 	data: {
     'name':'Raising Rachel',

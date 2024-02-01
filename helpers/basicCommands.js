@@ -1,3 +1,4 @@
+const { VERBOSE } = require('./parameters.js');
 // The move history will store each move a player makes, essentially keeping a history.
 // This history can be accessed by any bot to make inferences based on what the other bots do
 // The formatting for it is a key word followed by any data, so it can be accessed by splicing the string
@@ -40,7 +41,9 @@ module.exports = {
       move_history.set(currentPlayer.id, new_history)
     }
     //after updating the history call the engine function for the player.
-    console.log(`${currentPlayer.id} checked`);
+    if(VERBOSE){
+      console.log(`${currentPlayer.id} checked`);
+    }
     currentPlayer.checkAction();
   },
   async callHand(currentPlayer){
@@ -62,7 +65,9 @@ module.exports = {
       move_history.set(currentPlayer.id, new_history)
     }
     //after updating the history call the engine function for the player.
-    console.log(`${currentPlayer.id} called!`);
+    if(VERBOSE){
+      console.log(`${currentPlayer.id} called!`);
+    }
     currentPlayer.callAction();
   },
   async betHand(currentPlayer, bet){
@@ -84,7 +89,9 @@ module.exports = {
       move_history.set(currentPlayer.id, new_history)
     }
     //after updating the history call the engine function for the player.
-    console.log(`${currentPlayer.id} bet ${bet}!`);
+    if(VERBOSE){
+      console.log(`${currentPlayer.id} bet ${bet}!`);
+    }
     currentPlayer.betAction(bet);
   },
   async raiseHand(currentPlayer, raise){
@@ -106,7 +113,9 @@ module.exports = {
       move_history.set(currentPlayer.id, new_history)
     }
     //after updating the history call the engine function for the player.
-    console.log(`${currentPlayer.id} raised to ${raise}!`);
+    if(VERBOSE){
+      console.log(`${currentPlayer.id} raised to ${raise}!`);
+    }
     currentPlayer.raiseAction(raise);
   },
   async foldHand(currentPlayer){
@@ -123,7 +132,9 @@ module.exports = {
       move_history.set(currentPlayer.id, new_history)
     }
     //after updating the history call the engine function for the player.
-    console.log(`${currentPlayer.id} folded!`);
+    if(VERBOSE){
+      console.log(`${currentPlayer.id} folded!`);
+    }
     currentPlayer.foldAction();
   },
 }
@@ -136,6 +147,8 @@ function checkValidOption(currentPlayer, action){
   return false;
 }
 function foldInvalidHand(currentPlayer){
-  console.log(`Invalid choice selected! Automatically folding hand!`);
+  if(VERBOSE){
+    console.log(`Invalid choice selected! Automatically folding hand!`);
+  }
   foldHand(currentPlayer);
 }

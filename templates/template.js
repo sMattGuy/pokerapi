@@ -1,6 +1,6 @@
 // Here is an explination for everything you need to know to create an AI for the poker game
 // You have access to these options to essentially make your decision
-const { foldHand, callHand, betHand, checkHand, raiseHand, move_history} = require('../helperFunctions/basicCommands.js');
+const { foldHand, callHand, betHand, checkHand, raiseHand, move_history} = require('../helpers/basicCommands.js');
 const Hand = require('pokersolver').Hand;
 // Move history can be viewed to see what other players have done, its a map so you can access players move history
 // You can iterate over the list, or by using playerData.table.lastActor.id you can view a specific player
