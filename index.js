@@ -52,6 +52,19 @@ async function runGame(){
           }
         }
       }
+      //once round ends, print out winners and clean up
+      if(VERBOSE){
+        console.log('Final hands:');
+        for(let i=0;i<table.activePlayers.length;i++){
+          console.log(`${table.activePlayers[i].id} has ${table.activePlayers[i].hand} (${table.activePlayers[i].hand.descr})`);
+        }
+        console.log('Winner: ',table.winners[0].id);
+        console.log('Pot Amount: ',table.currentPot.amount);
+        console.log('Stack Size: ',table.winners[0].stackSize);
+        if(SLOW){
+          await delay_move(5000);
+        }
+      }
       //check if any players are out of money
       if (VERBOSE) {
         for(let i=0;i<table.activePlayers.length;i++){
@@ -59,15 +72,6 @@ async function runGame(){
             console.log(`${table.activePlayers[i].id} is out of cash! they've stood up and left!`);
           }
         }  
-      }
-      //once round ends, print out winners and clean up
-      if(VERBOSE){
-        console.log('Winner: ',table.winners[0].id);
-        console.log('Pot Amount: ',table.currentPot.amount);
-        console.log('Stack Size: ',table.winners[0].stackSize);
-        if(SLOW){
-          await delay_move(5000);
-        }
       }
       if(VERBOSE){
         console.log('Game Over! The winner is: ',table.winners[0].id);

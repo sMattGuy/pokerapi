@@ -28,7 +28,7 @@ module.exports = {
       setTimeout(() => reject(new Error('timeout')),2000);
     });
     const turnAction = new Promise((resolve,_) => {
-      // Put your code in here, your action will go into the resolve
+    // Put your code in here, your action will go into the resolve
 
     //   // Example code based on Randy Random
     //   let moveToMake = Math.floor(Math.random() * playerData.legalActions().length);  // Gets a random legal move
