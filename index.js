@@ -79,6 +79,10 @@ async function runGame(){
       table.cleanUp();
       if(VERBOSE){
         console.log('Players Remaining: ', table.activePlayers.length);
+        for(let i=0;i<table.activePlayers.length;i++){
+          console.log(`${table.activePlayers[i].id}`);
+        } 
+        console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~');
       }
     }
     const newWins = winCounter.get(table.activePlayers[0].id) + 1 || 1;

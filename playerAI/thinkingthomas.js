@@ -35,14 +35,14 @@ module.exports = {
       let results = checkOrFold(playerData);
       return resolve(results);
     }
-    // If hand isnt that bad and its pre-flop, call
-    else if(playerData.hand.rank == 1 && playerData.hand.cards[0].rank > 6 && playerData.table.currentRound == 'pre-flop'){
-      let result = checkCallOrFold(playerData);
-      return resolve(result);
-    }
     // If hand is a pair and its pre-flop, raise or bet
     else if(playerData.hand.rank == 2 && playerData.table.currentRound == 'pre-flop'){
       let result = betOrRaise(playerData);
+      return resolve(result);
+    }
+    // If hand isnt that bad and its pre-flop, call
+    else if(playerData.hand.rank == 1 && playerData.hand.cards[0].rank > 6 && playerData.table.currentRound == 'pre-flop'){
+      let result = checkCallOrFold(playerData);
       return resolve(result);
     }
     // SECTION FOR FLOP AND TURN
@@ -67,7 +67,7 @@ module.exports = {
       return resolve(result);
     }
     // Great hand, bet a lot
-    else if(playerData.table.currentRound == 'river' && playerData.hand.rank >= 4){
+    else if(playerData.table.currentRound == 'river' && playerData.hand.rank >= 3){
       let result = betOrRaise(playerData);
       return resolve(result);
     }
@@ -135,6 +135,9 @@ function betOrRaise(playerData){
   }
   else if(playerData.legalActions().includes('raise')){
     return ['raise',potentialRaise];
+  }
+  else if(playerData.legalActions().includes('call')){
+    return ['call'];
   }
   else {
     return ['fold'];
