@@ -106,7 +106,7 @@ module.exports = {
       move_history.set(currentPlayer.id, new_history)
     }
     //after updating the history call the engine function for the player.
-    console.log(`${currentPlayer.id} raised ${raise}!`);
+    console.log(`${currentPlayer.id} raised to ${raise}!`);
     currentPlayer.raiseAction(raise);
   },
   async foldHand(currentPlayer){

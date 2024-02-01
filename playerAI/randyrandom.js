@@ -5,11 +5,7 @@ module.exports = {
     'author':'sMattGuy',
   },
 	async execute(playerData) {
-    console.log(`I'm ${playerData.id}, and here's what I can do right now...`);
-    console.log(playerData.legalActions());
     let moveToMake = Math.floor(Math.random() * playerData.legalActions().length);
-    console.log(`I'm gonna ${playerData.legalActions()[moveToMake]}`);
-
     let potentialBet = playerData.table.bigBlind;
     let potentialRaise = playerData.table.currentBet + 10;
     if(potentialBet > playerData.stackSize && playerData.legalActions().includes('check') && playerData.legalActions()[moveToMake] == 'bet'){
@@ -30,7 +26,7 @@ module.exports = {
       case 'fold':
         return foldHand(playerData);
       default:
-        console.log('Something\'s wrong....');
+        return foldHand(playerData); // Fallback for any errors
     }
   },
 };

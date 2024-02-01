@@ -1,9 +1,36 @@
 const fs = require("node:fs");
 const path = require("node:path");
-const { Table } = require("@bradyy/poker-engine");
+const { Table } = require("@mattguy2/poker-engine");
 const { move_history, delay_move } = require("./helperFunctions/basicCommands.js")
+const { parseArgs } = require('node:util');
 
-const BALANCE = 100000; // Plan on making this a command line argument
+const args = process.argv.slice(2);
+//set up arguments
+const arg_options = {
+	'buy-in':{
+		type: 'string',
+		short: 'b',
+    default: '1000',
+	},
+	'verbose':{
+		type: 'boolean',
+		short: 'v',
+		default: false,
+	},
+  'slow':{
+		type: 'boolean',
+		short: 's',
+		default: false,
+	},
+}
+const {
+	values,
+	positionals,
+} = parseArgs({args,options:arg_options,allowPositionals:true});
+
+const BALANCE = values['buy-in'];
+const VERBOSE = values['verbose'];
+const SLOW = values['slow'];
 
 // import player AI
 const players = new Map();
@@ -24,11 +51,6 @@ runGame();
 
 async function runGame(){
   const table = new Table(BALANCE);
-  
-  // this whole section will need to be removed, just adding bots for testing
-  players.set("dummy_player1",players.get("Raising Rachel"));
-  // players.set("dummy_player2",players.get("Raising Rachel"));
-  // players.set("dummy_player3",players.get("Raising Rachel"));
 
   //sit down players
   for(let [key, value] of players){
@@ -39,14 +61,20 @@ async function runGame(){
     //start round loop
     let roundCounter = 0;
     while(table.currentRound){
-      console.log(roundCounter++);
-      console.log(`Current Round: ${table.currentRound}, Current Pot: ${table.currentPot.amount}`);
-      console.log(`Community Cards: ${getPrettyCards(table.communityCards)}`);
-      console.log(`Current Player: ${table.currentActor.id}, Hand: ${table.currentActor.hand}, Stack: ${table.currentActor.stackSize}`);
+      if(VERBOSE){
+        console.log(roundCounter++);
+        console.log(`Current Round: ${table.currentRound}, Current Pot: ${table.currentPot.amount}`);
+        console.log(`Community Cards: ${getPrettyCards(table.communityCards)}`);
+        console.log(`Current Player: ${table.currentActor.id}, Hand: ${table.currentActor.hand}, Stack: ${table.currentActor.stackSize}`);
+      }
       await players.get(table.currentActor.id).execute(table.currentActor);
-      console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~');
-      //artificial delay for now
-      //await delay_move(2000);
+      if(VERBOSE){
+        console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~');
+        if(SLOW){
+          //artificial delay for now
+          await delay_move(2000);
+        }
+      }
     }
     //remove any players who are out of money
     for(let i=0;i<table.activePlayers.length;i++){
@@ -55,12 +83,18 @@ async function runGame(){
       }
     }
     //once round ends, print out winners and clean up
-    console.log('Winner: ',table.winners[0].id);
-    console.log('Pot Amount: ',table.currentPot.amount);
-    console.log('Stack Size: ',table.winners[0].stackSize);
-    //await delay_move(5000);
+    if(VERBOSE){
+      console.log('Winner: ',table.winners[0].id);
+      console.log('Pot Amount: ',table.currentPot.amount);
+      console.log('Stack Size: ',table.winners[0].stackSize);
+      if(SLOW){
+        await delay_move(5000);
+      }
+    }
     table.cleanUp();
-    console.log('Players Remaining: ', table.activePlayers.length);
+    if(VERBOSE){
+      console.log('Players Remaining: ', table.activePlayers.length);
+    }
   }
   console.log('Game Over! The winner is: ',table.activePlayers[0].id);
 }

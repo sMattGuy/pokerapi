@@ -9,7 +9,7 @@
   "author": "smattguy",
   "license": "ISC",
   "dependencies": {
-    "@bradyy/poker-engine": "^1.2.15",
+    "@mattguy2/poker-engine": "github:MattGuy2/poker-engine",
     "typescript": "^5.3.3"
   }
 }
