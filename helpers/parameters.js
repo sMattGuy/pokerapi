@@ -14,17 +14,12 @@ const arg_options = {
 		short: 'v',
 		default: false,
 	},
-  'slow':{
+    'slow':{
 		type: 'boolean',
 		short: 's',
 		default: false,
 	},
-  'slow':{
-		type: 'boolean',
-		short: 's',
-		default: false,
-	},
-  'rounds':{
+  	'rounds':{
 		type: 'string',
 		short: 'r',
 		default: '1',

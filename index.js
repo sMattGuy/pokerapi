@@ -6,8 +6,20 @@ const { VERBOSE, BALANCE, SLOW, ROUNDS } = require('./helpers/parameters.js');
 
 // import player AI
 const players = new Map();
-const folderPath = path.join(__dirname, 'playerAI');
+const folderPath = path.join(__dirname, 'activePlayers');
+try{
+  if(!fs.existsSync(folderPath)){
+    fs.mkdirSync(folderPath);
+    return console.log('You must put bots into \'activePlayers\' folder!');
+  }
+}
+catch(err){
+  return console.log('You must create a directory called \'activePlayers\' and put bots into it!');
+}
 const playerFiles = fs.readdirSync(folderPath).filter(file => file.endsWith('.js'));
+if(playerFiles.length <= 1){
+  return console.log('You must put 2 or more bots into the \'activePlayers\' folder!');
+}
 for(const file of playerFiles){
   const filePath = path.join(folderPath,file);
   const ai = require(filePath);
