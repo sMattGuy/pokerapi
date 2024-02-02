@@ -1,6 +1,6 @@
 const fs = require("node:fs");
 const path = require("node:path");
-const { Table } = require("@mattguy2/poker-engine");
+const { Table } = require("@smattguy/poker-engine");
 const { move_history, delay_move } = require("./helpers/basicCommands.js")
 const { VERBOSE, BALANCE, SLOW, ROUNDS } = require('./helpers/parameters.js');
 
