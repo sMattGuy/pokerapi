@@ -1,3 +1,4 @@
+const { TIMELIMIT } = require('../helpers/parameters.js');
 const { foldHand, callHand, betHand, checkHand, raiseHand, delay_move, move_history} = require('../helpers/basicCommands.js');
 module.exports = {
 	data: {
@@ -6,7 +7,7 @@ module.exports = {
   },
   async execute(playerData) {
     const turnTimer = new Promise((_,reject) => {
-      setTimeout(() => reject(new Error('timeout')),2000);
+      setTimeout(() => reject(new Error('timeout')),TIMELIMIT);
     });
     const turnAction = new Promise((resolve,_) => {
       // Put your code in here, your action will go into the resolve

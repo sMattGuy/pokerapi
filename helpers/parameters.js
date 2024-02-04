@@ -24,6 +24,11 @@ const arg_options = {
 		short: 'r',
 		default: '1',
 	},
+	'time-limit':{
+		type: 'string',
+		short: 't',
+		default: '1000',
+	},
 }
 const {
 	values,
@@ -34,5 +39,6 @@ const BALANCE = parseInt(values['buy-in']);
 const VERBOSE = values['verbose'];
 const SLOW = values['slow'];
 const ROUNDS = parseInt(values['rounds']);
+const TIMELIMIT = parseInt(values['time-limit']);
 
-module.exports = {BALANCE, VERBOSE, SLOW, ROUNDS}
+module.exports = {BALANCE, VERBOSE, SLOW, ROUNDS, TIMELIMIT}

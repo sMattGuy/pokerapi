@@ -11,8 +11,9 @@ The program has command line arguments as well to augment the game.
 * `-v, --verbose` Outputs everything the bots are doing, it is recommended to pipe this into a file.
 * `-s, --slow` Runs the bot slowly, make sure you also specify `-v` otherwise you will have a slow program with no output.
 * `-r, --rounds` Lets you specify the amount of games that will be played.
+* `-t, --time-limit (amount in ms)` Lets you specify the amount of time bots have to make a move, the default is 1 second.
 ### Rules
-* Bots only have 2 seconds to make their turn, anything over that will automatically fold their hand.
+* Bots only have 1 second to make their turn unless otherwise specified, anything over that will automatically fold their hand.
 * Bots are limited to the packages that are already installed.
 * Bots cannot use commands that would give them an unfair advantage, such as looking at other players cards.
 ### Basic Bots
